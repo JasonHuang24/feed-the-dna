@@ -56,8 +56,13 @@
           <!-- Form -->
           <div class="reveal">
             <h2>Start the conversation.</h2>
-            <p class="placeholder-note" style="margin-bottom:1.4rem;">▢ Connect this form to a handler (Formspree / Netlify Forms) or your email</p>
-            <form class="form" action="#" method="post" onsubmit="return false;">
+            <form class="form" id="contact-form" action="https://api.web3forms.com/submit" method="POST">
+              <!-- Web3Forms access key (free, tied to feedthedna@gmail.com). Replace the placeholder below. -->
+              <input type="hidden" name="access_key" value="56578508-c13b-45f2-a2ea-641a83e84f8e" />
+              <input type="hidden" name="subject" value="New message from the Feed The DNA website" />
+              <input type="hidden" name="from_name" value="Feed The DNA website" />
+              <!-- Honeypot: bots fill this; humans never see it -->
+              <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" style="display:none" aria-hidden="true" />
               <div class="row">
                 <div>
                   <label for="name">Name</label>
@@ -83,11 +88,12 @@
               </div>
               <div>
                 <label for="message">Message</label>
-                <textarea id="message" name="message" placeholder="Tell us what you're building or how you'd like to get involved&hellip;"></textarea>
+                <textarea id="message" name="message" required placeholder="Tell us what you're building or how you'd like to get involved&hellip;"></textarea>
               </div>
               <div>
                 <button class="btn btn--primary" type="submit">Start the Conversation &rarr;</button>
               </div>
+              <p class="form__status" id="form-status" role="status" aria-live="polite"></p>
             </form>
           </div>
 
@@ -98,7 +104,7 @@
               <dl class="contact-list" style="margin-top:1.4rem;">
                 <div>
                   <dt>Email</dt>
-                  <dd><a href="mailto:hello@feedthedna.com">hello@feedthedna.com</a> <span class="placeholder-note">▢ confirm</span></dd>
+                  <dd><a href="mailto:feedthedna@gmail.com">feedthedna@gmail.com</a></dd>
                 </div>
                 <div>
                   <dt>Social</dt>
@@ -157,7 +163,7 @@
           <ul>
             <li><a href="https://www.feedthedna.com" target="_blank" rel="noopener">feedthedna.com</a></li>
             <li><a href="https://www.dnactivate.com" target="_blank" rel="noopener">dnactivate.com &mdash; podcast</a></li>
-            <li><a href="mailto:hello@feedthedna.com">Email us</a></li>
+            <li><a href="mailto:feedthedna@gmail.com">Email us</a></li>
           </ul>
           <div class="socials">
             <a class="social" href="https://www.facebook.com/share/1DpHsLjk6c" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 320 512" aria-hidden="true"><path d="M279.14 288l14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z"/></svg></a>

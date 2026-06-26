@@ -430,6 +430,11 @@ body.page-dna .band::before { background: radial-gradient(760px 340px at 80% -10
 .form select option { color: #16102b; }
 .form input:focus, .form textarea:focus, .form select:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(167,139,250,.2); }
 .form textarea { min-height: 150px; resize: vertical; }
+.form button[disabled] { opacity: .6; cursor: progress; }
+.form__status { margin: 0; font-weight: 500; min-height: 1.2em; color: var(--ink-soft); }
+.form__status:empty { display: none; }
+.form__status.is-ok { color: #5BE6A8; }
+.form__status.is-err { color: #FF8E8E; }
 
 /* ---- Contact details --------------------------------------------------- */
 .contact-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 1.3rem; }

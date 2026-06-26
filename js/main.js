@@ -52,4 +52,42 @@
   // Year stamp
   var y = document.querySelector("[data-year]");
   if (y) y.textContent = new Date().getFullYear();
+
+  // Contact form — Web3Forms AJAX submit (stays on page, shows inline status)
+  var form = document.getElementById("contact-form");
+  if (form) {
+    var status = document.getElementById("form-status");
+    var setStatus = function (cls, msg) {
+      if (!status) return;
+      status.className = "form__status" + (cls ? " " + cls : "");
+      status.textContent = msg;
+    };
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var btn = form.querySelector("button[type=submit]");
+      var data = JSON.stringify(Object.fromEntries(new FormData(form).entries()));
+      setStatus("", "Sending…");
+      if (btn) btn.disabled = true;
+      fetch(form.action, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: data
+      })
+        .then(function (res) {
+          return res.json().then(function (json) { return { ok: res.ok, json: json }; });
+        })
+        .then(function (r) {
+          if (r.ok && r.json.success) {
+            form.reset();
+            setStatus("is-ok", "Thanks — your message is on its way. We'll be in touch soon.");
+          } else {
+            setStatus("is-err", (r.json && r.json.message) || "Something went wrong. Please email feedthedna@gmail.com.");
+          }
+        })
+        .catch(function () {
+          setStatus("is-err", "Network error. Please email feedthedna@gmail.com.");
+        })
+        .finally(function () { if (btn) btn.disabled = false; });
+    });
+  }
 })();
