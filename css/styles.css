@@ -294,8 +294,18 @@ textarea:focus-visible, select:focus-visible {
     radial-gradient(680px 460px at 24% 26%, rgba(53,187,255,.5), transparent 62%),
     radial-gradient(620px 460px at 80% 74%, rgba(255,138,42,.42), transparent 64%);
 }
-/* On very narrow/portrait screens, letterbox the full banner instead of hard-cropping the sides */
-@media (max-aspect-ratio: 3/4) { .hero--photo { background-size: contain; background-color: var(--bg-0); } }
+/* Narrow / portrait: stack the banner ABOVE the copy instead of overlaying it.
+   The banners carry baked-in wordmarks, so text laid over the letterboxed image collides. */
+@media (max-aspect-ratio: 3/4) {
+  .hero--photo {
+    display: block;
+    min-height: 0;
+    padding: calc(66.7vw + 1.25rem) 0 clamp(40px, 9vw, 72px); /* clear the banner; 66.7vw ≈ its height at 3:2 */
+    background-size: 100% auto;        /* full-width banner at its natural height */
+    background-position: top center;
+    background-color: var(--bg-0);
+  }
+}
 .hero--photo .container { position: relative; z-index: 2; text-align: center; }
 .hero--photo .lead { margin-inline: auto; }
 .hero--photo .hero__actions { justify-content: center; margin-top: 1.6rem; }
@@ -471,7 +481,6 @@ body.page-dna .band::before { background: radial-gradient(760px 340px at 80% -10
   .form .row { grid-template-columns: 1fr; }
   .footer__grid { grid-template-columns: 1fr 1fr; }
   .hero__stats { gap: 1.5rem; }
-  .hero--photo { min-height: 78vh; }
 }
 @media (max-width: 460px) { .footer__grid { grid-template-columns: 1fr; } }
 
